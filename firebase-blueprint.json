@@ -1,0 +1,124 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Student profile for junior or senior mentor.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["junior", "senior", "admin"] },
+        "college": { "type": "string" },
+        "course": { "type": "string" },
+        "department": { "type": "string" },
+        "year": { "type": "number" },
+        "bio": { "type": "string" },
+        "avatarUrl": { "type": "string" },
+        "rating": { "type": "number" },
+        "reviewCount": { "type": "number" },
+        "mentorshipCount": { "type": "number" },
+        "isVerified": { "type": "boolean" },
+        "isSuspended": { "type": "boolean" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["id", "name", "email", "role", "college", "course", "department", "year"]
+    },
+    "ConnectionRequest": {
+      "title": "ConnectionRequest",
+      "description": "Junior to senior connection request.",
+      "type": "object",
+      "properties": {
+        "fromUserId": { "type": "string" },
+        "toUserId": { "type": "string" },
+        "senderName": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "accepted", "rejected"] },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["fromUserId", "toUserId", "status", "createdAt"]
+    },
+    "ChatThread": {
+      "title": "ChatThread",
+      "description": "Conversation between two connected students.",
+      "type": "object",
+      "properties": {
+        "participants": { "type": "array" },
+        "lastMessage": { "type": "string" },
+        "lastMessageAt": { "type": "number" },
+        "lastSenderId": { "type": "string" }
+      },
+      "required": ["participants", "lastMessage", "lastMessageAt"]
+    },
+    "Question": {
+      "title": "Question",
+      "description": "Campus academic or career question.",
+      "type": "object",
+      "properties": {
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "upvotes": { "type": "number" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["authorId", "authorName", "title", "description", "category", "createdAt"]
+    },
+    "StudyResource": {
+      "title": "StudyResource",
+      "description": "Academic notes, PYQ, or study material.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "fileUrl": { "type": "string" },
+        "uploadedBy": { "type": "string" },
+        "downloads": { "type": "number" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["title", "category", "fileUrl", "uploadedBy", "createdAt"]
+    },
+    "MentorshipSession": {
+      "title": "MentorshipSession",
+      "description": "1-on-1 mentorship session between junior and senior.",
+      "type": "object",
+      "properties": {
+        "mentorId": { "type": "string" },
+        "studentId": { "type": "string" },
+        "topic": { "type": "string" },
+        "date": { "type": "string" },
+        "startTime": { "type": "string" },
+        "status": { "type": "string", "enum": ["requested", "accepted", "rejected", "completed", "cancelled"] },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["mentorId", "studentId", "topic", "date", "startTime", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Collection of student profiles"
+    },
+    "/connectionRequests/{requestId}": {
+      "schema": "ConnectionRequest",
+      "description": "Student connection requests"
+    },
+    "/chats/{chatId}": {
+      "schema": "ChatThread",
+      "description": "One-on-one student messaging threads"
+    },
+    "/questions/{questionId}": {
+      "schema": "Question",
+      "description": "Campus academic Q&A questions"
+    },
+    "/resources/{resourceId}": {
+      "schema": "StudyResource",
+      "description": "Academic library resources"
+    },
+    "/mentorships/{sessionId}": {
+      "schema": "MentorshipSession",
+      "description": "1-on-1 mentorship appointments"
+    }
+  }
+}

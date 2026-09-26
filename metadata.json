@@ -1,0 +1,6 @@
+{
+  "name": "JuniorConnect",
+  "description": "JuniorConnect - Connect junior students with seniors from the same university for mentorship, Q&A, study resources, and career guidance.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
